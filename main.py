@@ -7,6 +7,7 @@ import argparse
 algorithms = {
     "dfs" : algorithm.DFS,
     "bfs" : algorithm.BFS,
+    "greedy" : algorithm.Greedy,
     "astar" : algorithm.AStar
 }
 

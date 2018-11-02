@@ -85,6 +85,43 @@ class DFS(StateSpaceSearchAlgorithm):
 
 ##############################################################################
 
+class Greedy(StateSpaceSearchAlgorithm):
+	def solve(self, problem, heuristic=NullHeuristic):
+		openSet = queue.PriorityQueue()
+		closedSet = set()
+		metadata = dict()
+
+		state = problem.getInitialState()
+		fScore = heuristic(state)
+		metadata[state] = (None, None)
+
+		openSet.put((fScore, state))
+
+		while not openSet.empty():
+			_, state = openSet.get()
+
+			if state in closedSet:
+				continue
+
+			problem.printGrid()
+			closedSet.add(state)
+
+			if(problem.isGoalState(state)):
+				return self._reconstructPath(state, metadata)
+
+			for childState, action, cost in problem.getSuccessors(state):
+				if childState in closedSet:
+					continue
+
+				fScore = heuristic(childState)
+
+				metadata[childState] = (state, action)
+				openSet.put((fScore, childState))
+
+		return None
+
+##############################################################################
+
 class AStar(StateSpaceSearchAlgorithm):
 	def solve(self, problem, heuristic=NullHeuristic):
 		openSet = queue.PriorityQueue()
@@ -118,6 +155,6 @@ class AStar(StateSpaceSearchAlgorithm):
 				fScore = childGScore + heuristic(childState)
 
 				metadata[childState] = (state, action)
-				openSet.put((fScore, gScore, childState))
+				openSet.put((fScore, childGScore, childState))
 
 		return None
