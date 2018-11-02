@@ -25,11 +25,17 @@ class PathFindingProblem(Problem):
 		def __hash__(self):
 			return self.x + self.y
 
+		def __lt__(self, other):
+			if isinstance(other, PathFindingProblem.State):
+				return self.x < other.y
+			return NotImplemented
+
+
 	class Action(Enum):
-		MoveLeft = 0,
-		MoveRight = 1,
-		MoveUp = 2,
-		MoveDown = 3
+		Left = 0,
+		Right = 1,
+		Up = 2,
+		Down = 3
 
 	def __init__(self, fileName):
 		with open(fileName) as f:
@@ -56,6 +62,8 @@ class PathFindingProblem(Problem):
 
 		self._initialGrid = copy.deepcopy(self._grid)
 
+	def getGoalState(self):
+		return self._goalState
 
 	def getInitialState(self):
 		self.__markAsOpen(self._initialState.x, self._initialState.y)
@@ -74,14 +82,16 @@ class PathFindingProblem(Problem):
 				self.__markAsOpen(state.x, state.y)
 				successors.append((state, action, 1))
 
-		addIfSuccessor(self.State(state.x + 1, state.y), self.Action.MoveRight)
-		addIfSuccessor(self.State(state.x - 1, state.y), self.Action.MoveLeft)
-		addIfSuccessor(self.State(state.x, state.y + 1), self.Action.MoveDown)
-		addIfSuccessor(self.State(state.x, state.y - 1), self.Action.MoveUp)
+		addIfSuccessor(self.State(state.x + 1, state.y), self.Action.Right)
+		addIfSuccessor(self.State(state.x - 1, state.y), self.Action.Left)
+		addIfSuccessor(self.State(state.x, state.y + 1), self.Action.Down)
+		addIfSuccessor(self.State(state.x, state.y - 1), self.Action.Up)
 
 		return successors
 
 	def printGrid(self):
+		input()
+		print(chr(27) + "[2J")
 		for line in self._grid:
 			print("".join(line))
 		print()
