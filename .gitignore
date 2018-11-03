@@ -2,6 +2,10 @@
 
 !*/
 
+!presentation/*.tex
+
+!presentation/img/**
+
 !*.py
 
 !*.test
