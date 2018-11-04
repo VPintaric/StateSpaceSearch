@@ -136,12 +136,6 @@ class Problem:
 
 \section{Search algorithm}
 
-\begin{frame}{General search algorithm}
-	\begin{itemize}
-		\item 
-	\end{itemize}
-\end{frame}
-
 \subsection{Search tree}
 
 \begin{frame}{Search tree}
@@ -154,8 +148,28 @@ class Problem:
 
 \end{frame}
 
+\begin{frame}{Nodes}
+
+\begin{itemize}
+	\item Open nodes - known but unexplored
+	\item Closed nodes - explored i.e. checked against goal state and their successors were queried
+\end{itemize}
+
+\end{frame}
+
 \subsection{General algorithm pseudocode}
 
+\begin{frame}[fragile]{General algorithm pseudocode}
+\begin{lstlisting}
+openNodes.insert(getInitialState())
+while openNodes not empty 
+	node = openNodes.get()
+	if isGoalState(node)
+		return node
+	for childNode in getSuccessors(node)
+		openNodes.insert(childNode)
+\end{lstlisting}
+\end{frame}
 
 \section{Blind algorithms}
 
