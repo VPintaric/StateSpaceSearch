@@ -35,103 +35,103 @@
 
 \begin{frame}{Problem definition}
 
-\begin{itemize}
-	\item a set of states (state space)
-	\item initial state
-	\item transitions between states
-	\item goal state test
-\end{itemize}
+	\begin{itemize}
+		\item a set of states (state space)
+		\item initial state
+		\item transitions between states
+		\item goal state test
+	\end{itemize}
 
 \end{frame}
 
 \begin{frame}[fragile]{Problem definition}
 
-\begin{lstlisting}[language=Python]
-class Problem:
-	# Should return a State object
-	def getInitialState(self):
-		pass
-
-	# Should check if given
-	# state is goal state
-	def isGoalState(self, state):
-		pass
-
-	# Should return a list
-	# of triplets (state, action, cost)
-	def getSuccessors(self, state):
-		pass
-\end{lstlisting}
+	\begin{lstlisting}[language=Python]
+	class Problem:
+		# Should return a State object
+		def getInitialState(self):
+			pass
+	
+		# Should check if given
+		# state is goal state
+		def isGoalState(self, state):
+			pass
+	
+		# Should return a list
+		# of triplets (state, action, cost)
+		def getSuccessors(self, state):
+			pass
+	\end{lstlisting}
 
 \end{frame}
 
 \subsection{8-Puzzle}
 
 \begin{frame}
-\begin{figure}
-\centering
-	\includegraphics[width=0.5\linewidth]{puzzle8.png}
-	\caption{8-Puzzle initial state}
-\end{figure}
+	\begin{figure}
+	\centering
+		\includegraphics[width=0.5\linewidth]{puzzle8.png}
+		\caption{8-Puzzle initial state}
+	\end{figure}
 \end{frame}
 
 \begin{frame}
-\begin{figure}
-\centering
-	\includegraphics[width=0.5\linewidth]{puzzle8_arrows.png}
-	\caption{8-Puzzle possible actions}
-\end{figure}
+	\begin{figure}
+	\centering
+		\includegraphics[width=0.5\linewidth]{puzzle8_arrows.png}
+		\caption{8-Puzzle possible actions}
+	\end{figure}
 \end{frame}
 
 \begin{frame}
-\begin{figure}
-\centering
-	\includegraphics[width=0.5\linewidth]{puzzle8_successors.png}
-	\caption{8-Puzzle list of successor triplets}
-\end{figure}
+	\begin{figure}
+	\centering
+		\includegraphics[width=0.5\linewidth]{puzzle8_successors.png}
+		\caption{8-Puzzle list of successor triplets}
+	\end{figure}
 \end{frame}
 
 \begin{frame}
-\begin{figure}
-\centering
-	\includegraphics[width=0.5\linewidth]{puzzle8_goal.png}
-	\caption{8-Puzzle goal state}
-\end{figure}
+	\begin{figure}
+	\centering
+		\includegraphics[width=0.5\linewidth]{puzzle8_goal.png}
+		\caption{8-Puzzle goal state}
+	\end{figure}
 \end{frame}
 
 \subsection{Pathfinding}
 
 \begin{frame}
-\begin{figure}
-\centering
-	\includegraphics[width=0.5\linewidth]{pathfinding.png}
-	\caption{Pathfinding initial state}
-\end{figure}
+	\begin{figure}
+	\centering
+		\includegraphics[width=0.5\linewidth]{pathfinding.png}
+		\caption{Pathfinding initial state}
+	\end{figure}
 \end{frame}
 
 \begin{frame}
-\begin{figure}
-\centering
-	\includegraphics[width=0.5\linewidth]{pathfinding_arrows.png}
-	\caption{Pathfinding possible actions}
-\end{figure}
+	\begin{figure}
+	\centering
+		\includegraphics[width=0.5\linewidth]{pathfinding_arrows.png}
+		\caption{Pathfinding possible actions}
+	\end{figure}
 \end{frame}
 
 \begin{frame}
-\begin{figure}
-\centering
-	\includegraphics[width=0.3\linewidth]{pathfinding_successors.png}
-	\caption{Pathfinding list of successor triplets}
-\end{figure}
+	\begin{figure}
+	\centering
+		\includegraphics[width=0.3\linewidth]{pathfinding_successors.png}
+		\caption{Pathfinding list of successor triplets}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{State space graph}
-\pause
-\begin{figure}
-\centering
-	\includegraphics[width=0.6\linewidth]{state_space_graph.png}
-	\caption{State space graph}
-\end{figure}
+	\pause
+	\begin{figure}
+	\centering
+		\includegraphics[width=0.6\linewidth]{state_space_graph.png}
+		\caption{State space graph}
+	\end{figure}
 \end{frame}
 
 \section{Search algorithm}
@@ -140,27 +140,30 @@ class Problem:
 
 \begin{frame}{Search tree}
 
-\begin{figure}
-\centering
-	\includegraphics[width=\linewidth]{state_space_vs_search_tree.png}
-	\caption{State space vs search tree}
-\end{figure}
+	\begin{figure}
+	\centering
+		\includegraphics[width=\linewidth]{state_space_vs_search_tree.png}
+		\caption{State space vs search tree}
+	\end{figure}
 
 \end{frame}
 
 \begin{frame}{Nodes}
 
-\begin{itemize}
-	\item Open nodes - known but unexplored
-	\item Closed nodes - explored i.e. checked against goal state and their successors were queried
-\end{itemize}
+	\begin{itemize}
+		\item Open nodes - known but unexplored
+		\item Closed nodes - explored i.e. checked against goal state and their successors were queried
+	\end{itemize}
 
 \end{frame}
 
 \subsection{General algorithm pseudocode}
 
 \begin{frame}[fragile]{General algorithm pseudocode}
-\begin{lstlisting}
+	\begin{lstlisting}
+closedNodes = {}
+openNode = {}
+
 openNodes.insert(getInitialState())
 while openNodes not empty 
 	node = openNodes.get()
@@ -168,12 +171,55 @@ while openNodes not empty
 		return node
 	for childNode in getSuccessors(node)
 		openNodes.insert(childNode)
-\end{lstlisting}
+	closedNodes.insert(node)
+	\end{lstlisting}
 \end{frame}
 
 \section{Blind algorithms}
 
+\begin{frame}{Blind algorithms}
+
+	\begin{columns}[T]
+	
+		\begin{column}{.48\textwidth}
+			\begin{figure}
+			\centering
+				\includegraphics[width=\linewidth]{spongebob_blind.jpg}
+			\end{figure}
+		\end{column}
+		
+		\begin{column}{.48\textwidth}
+		
+			\begin{itemize}
+				\item no additional information about the problem
+				\item needs to figure everything out on it's own
+			\end{itemize}
+		
+		\end{column}
+	
+	\end{columns}
+
+\end{frame}
+
 \subsection{Breadth first search (BFS)}
+
+\begin{frame}[fragile]{Breadth First Search (BFS)}
+	\begin{lstlisting}
+closedNodes = {}
+
+# First In First Out
+openNode = Queue()
+
+openNodes.insert(getInitialState())
+while openNodes not empty 
+	node = openNodes.get()
+	if isGoalState(node)
+		return node
+	for childNode in getSuccessors(node)
+		openNodes.insert(childNode)
+	closedNodes.insert(node)
+	\end{lstlisting}
+\end{frame}
 
 \subsection{Depth first search (DFS)}
 
@@ -191,63 +237,5 @@ while openNodes not empty
 
 \section{Unity engine - NavMesh}
 
-
-% -----------------------------------------
-
-\section{Introduction}
-
-\begin{frame}{Introduction}
-
-\begin{itemize}
-  \item Your introduction goes here!
-  \item Use \texttt{itemize} to organize your main points.
-\end{itemize}
-
-\begin{block}{Examples}
-Some examples of commonly used commands and features are included, to help you get started.
-\end{block}
-
-\end{frame}
-
-\section{Some \LaTeX{} Examples}
-
-\subsection{Tables and Figures}
-
-\begin{frame}{Tables and Figures}
-
-\begin{itemize}
-\item Use \texttt{tabular} for basic tables --- see Table~\ref{tab:widgets}, for example.
-\item You can upload a figure (JPEG, PNG or PDF) using the files menu. 
-\item To include it in your document, use the \texttt{includegraphics} command (see the comment below in the source code).
-\end{itemize}
-
-% Commands to include a figure:
-%\begin{figure}
-%\includegraphics[width=\textwidth]{your-figure's-file-name}
-%\caption{\label{fig:your-figure}Caption goes here.}
-%\end{figure}
-
-\begin{table}
-\centering
-\begin{tabular}{l|r}
-Item & Quantity \\\hline
-Widgets & 42 \\
-Gadgets & 13
-\end{tabular}
-\caption{\label{tab:widgets}An example table.}
-\end{table}
-
-\end{frame}
-
-\subsection{Mathematics}
-
-\begin{frame}{Readable Mathematics}
-
-Let $X_1, X_2, \ldots, X_n$ be a sequence of independent and identically distributed random variables with $\text{E}[X_i] = \mu$ and $\text{Var}[X_i] = \sigma^2 < \infty$, and let
-$$S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
-      = \frac{1}{n}\sum_{i}^{n} X_i$$
-denote their mean. Then as $n$ approaches infinity, the random variables $\sqrt{n}(S_n - \mu)$ converge in distribution to a normal $\mathcal{N}(0, \sigma^2)$.
-
-\end{frame}
 
 \end{document}
