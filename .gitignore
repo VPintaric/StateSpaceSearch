@@ -4,6 +4,8 @@
 
 !presentation/*.tex
 
+!presentation/*.pdf
+
 !presentation/img/**
 
 !*.py
